@@ -1,0 +1,4 @@
+:my_hourly_job:
+  cron: "0 * * * *"
+  class: "MyHourlyJob"
+  queue: "default"
