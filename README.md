@@ -42,7 +42,7 @@ This project is build on the Ruby on Rails. It's primary focus is to fetch the d
 
 ## Live Demo Link <a name = "ll"></a>
 
-[Live Demo](https://user-records-app.onrender.com)
+Not Yet
 
 
 ## Getting Started <a name = "gs"></a>
