@@ -1,0 +1,31 @@
+<h1>All Users</h1>
+
+<%= form_tag(users_path, method: :get) do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search by first name" %>
+  <%= submit_tag "Search" %>
+<% end %>
+
+<p>Total Number of Users: <%= @users.size %></p>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Gender</th>
+    <th>Created At</th>
+    <th>Action</th>
+  </tr>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= format_name(user.name["title"], user.name["first"], user.name["last"]) %></td>
+      <td><%= user.age %></td>
+      <td><%= user.gender %></td>
+      <td><%= user.created_at %></td>
+      <td><%= form_for user, method: :delete, data: { confirm: 'Are you sure?' } do |f| %>
+        <%= f.submit 'Delete' %>
+      <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+

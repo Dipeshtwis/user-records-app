@@ -6,6 +6,10 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+if Rails.env.development? || Rails.env.test?
+  Dotenv::Railtie.load
+end
+
 module UserRecordsApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -23,5 +27,17 @@ module UserRecordsApp
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.active_job.queue_adapter = :sidekiq
+    config.cache_store = :redis_cache_store, { url: ENV['REDIS_URL'] || 'redis://localhost:6379/0/cache' }
+
+    Sidekiq.configure_server do |config|
+      config.redis = { url: ENV['REDIS_URL'] || 'redis://localhost:6379/0' }
+      schedule_file = "config/sidekiq_schedule.yml"
+    
+      if File.exist?(schedule_file)
+        Sidekiq::Cron::Job.load_from_hash YAML.load_file(schedule_file)
+      end
+    end
   end
 end

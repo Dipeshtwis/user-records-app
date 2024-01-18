@@ -1,0 +1,8 @@
+:my_hourly_job:
+  cron: "0 * * * *"
+  class: "MyHourlyJob"
+  queue: "default"
+:end_of_day_job:
+  cron: "0 0 * * *"
+  class: "EndOfDayJob"
+  queue: "default"

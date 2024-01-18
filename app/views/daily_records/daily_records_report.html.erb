@@ -1,0 +1,20 @@
+<h1>Daily Records Report</h1>
+
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Male Avg Count</th>
+    <th>Female Avg Count</th>
+    <th>Male Avg Age</th>
+    <th>Female Avg Age</th>
+  </tr>
+  <% @daily_records.each do |daily_record| %>
+    <tr>
+      <td><%= daily_record.date %></td>
+      <td><%= daily_record.male_count %></td>
+      <td><%= daily_record.female_count %></td>
+      <td><%= daily_record.male_avg_age %></td>
+      <td><%= daily_record.female_avg_age %></td>
+    </tr>
+  <% end %>
+</table>
