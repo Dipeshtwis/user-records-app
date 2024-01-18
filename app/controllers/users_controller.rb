@@ -9,15 +9,15 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     gender = @user.gender
-
-    # Find or initialize the DailyRecord for the current date
-    daily_record = DailyRecord.find_or_initialize_by(date: Date.today)
-
-    # Decrement the corresponding count in DailyRecord based on the user's gender
-    daily_record.update("#{gender}_count": daily_record["#{gender}_count"].to_i - 1) if daily_record.persisted?
-    daily_record.save
+    user_creation_day = @user.created_at.to_date
 
     @user.destroy
+
+    # Find or initialize the DailyRecord for the date when user created
+    daily_record = DailyRecord.find_or_initialize_by(date: user_creation_day)
+
+    daily_record.update("#{gender}_count": daily_record["#{gender}_count"].to_i - 1) if daily_record.persisted?
+    daily_record.save
 
     redirect_to users_path, notice: 'User was successfully deleted.'
   end
