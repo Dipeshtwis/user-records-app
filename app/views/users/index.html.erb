@@ -17,7 +17,7 @@
   </tr>
   <% @users.each do |user| %>
     <tr>
-      <td><%= user.name %></td>
+      <td><%= format_name(user.name["title"], user.name["first"], user.name["last"]) %></td>
       <td><%= user.age %></td>
       <td><%= user.gender %></td>
       <td><%= user.created_at %></td>
